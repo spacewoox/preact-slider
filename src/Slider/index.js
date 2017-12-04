@@ -1,12 +1,12 @@
 import { h, render, Component } from 'preact'
 import enquire from 'enquire.js'
 import json2mq from 'json2mq'
-import './style.css'
 import WithPaginate from '../WithPaginate'
 import WithSliding from '../WithSliding'
 import { cycleThrough } from '../lib/Pagination'
 import { toArrayOfXElement } from '../lib/Utils'
 import { generateSortedMediaQueriesFromList } from '../lib/Json2MqParsing'
+import './style.css'
 
 const GenerateSliderList = ({itemPerPage, datas, children }) => {
   const list =
