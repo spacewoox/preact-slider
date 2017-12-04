@@ -1,5 +1,4 @@
 const path = require('path')
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const dev = process.env.NODE_ENV === 'dev'
 
 let config = {
@@ -8,9 +7,6 @@ let config = {
     filename: 'preact-slider.js',
     path: path.resolve('dist/')
   },
-  plugins: [
-    new ExtractTextPlugin("preact-slider.css"),
-  ],
   module: {
     rules: [
       {
@@ -19,10 +15,10 @@ let config = {
       },
       {
         test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: "style-loader",
-          use: "css-loader"
-        })
+        loaders: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },
