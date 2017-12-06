@@ -8,37 +8,86 @@ import { toArrayOfXElement } from '../lib/Utils'
 import { generateSortedMediaQueriesFromList } from '../lib/Json2MqParsing'
 import './style.css'
 
-const GenerateSliderList = ({itemPerPage, datas, children }) => {
-  const list =
-    toArrayOfXElement(
-      datas.map(x =>
-        <div className='slider-item' style={{width: (100 / itemPerPage) + '%'}}>{x}</div>
-      ), itemPerPage)
-    .map(x => <div className='slider-page'>{x}</div>)
+/*
+const Slider2 = ({datas, itemPerPage=datas.length, children}) => {
+  const groupedDatas = toArrayOfXElement(datas, itemPerPage)
+  const mapper = Fn => {
+    const list =
+      groupedDatas.map(page =>
+        page.map(x =>
+          <div className='slider-item' style={{width: (100 / itemPerPage) + '%'}}>
+            {Fn(x)}
+          </div>
+        )
+      ).map(x => <div className='slider-page'>{x}</div>)
 
-  return children[0](list)
-}
+    return list
+  }
 
-const Slider = ({datas, itemPerPage=datas.length, children}) => {
   return (
-    <GenerateSliderList itemPerPage={itemPerPage} datas={datas}>
-    {list => (
+    <WithPaginate max={groupedDatas.length-1} min={0}>
+    {(offset, next, prev) => (
+      <div className='slider-container'>
+        {children[0](mapper, next, prev, offset)}
+      </div>
+    )}
+    </WithPaginate>
+  )
+}
+*/
 
-      <WithPaginate max={list.length-1} min={0}>
+class Slider extends Component {
+  constructor(props) {
+    super(props)
+    const { datas, itemPerPage } = props
+    this.state = { list: null }
+    this.mapper = this.mapper.bind(this)
+    this.groupedDatas = toArrayOfXElement(datas, itemPerPage)
+  }
+
+  mapper(Fn) {
+    const {datas, itemPerPage=datas.length } = this.props
+    const list =
+      this.groupedDatas.map(page =>
+        page.map(x =>
+          <div className='slider-item' style={{width: (100 / itemPerPage) + '%'}}>
+          {Fn(x)}
+          </div>
+        )
+      ).map(x => <div className='slider-page'>{x}</div>)
+
+    console.log('set state')
+    /*
+    this.setState({
+      list: list
+    })
+    */
+    return list
+  }
+
+  render() {
+    const {datas, itemPerPage=datas.length, children} = this.props
+    console.log('re-render slider')
+
+    return (
+      <WithPaginate max={this.groupedDatas.length-1} min={0}>
       {(offset, next, prev) => (
 
-        <WithSliding list={list} offset={offset}>
+        <WithSliding list={this.state.list} offset={offset}>
         {() => (
+
           <div className='slider-container'>
-            {children[0](list, next, prev, offset)}
+            {children[0](this.mapper, next, prev, offset)}
           </div>
         )}
         </WithSliding>
       )}
       </WithPaginate>
-    )}
-    </GenerateSliderList>
-  )
+    )
+
+  }
 }
+
+
 
 export default Slider
