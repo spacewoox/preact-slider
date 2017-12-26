@@ -1,8 +1,7 @@
 import { h, render } from 'preact'
-import Slider from '../src/Slider'
-import ResponsiveSlider from '../src/ResponsiveSlider'
+import NewSlider from '../src/NewSlider'
 
-const datas = [
+const data = [
   { name: 'test1' },
   { name: 'test2' },
   { name: 'test3' },
@@ -24,49 +23,33 @@ const style = {
 
 const Sample = () => {
 
-  const wrapDataItemInDiv = datas =>
-    datas.map(x => <div style={style.item}>{x.name}</div>)
+  const getList = mapper => {
 
-  const breakpoints = [
-    { bp: 1000, itemPerPage: 5 },
-    { bp: 600, itemPerPage: 3 },
-    { bp: 400, itemPerPage: 1 },
-  ]
+    const list = mapper(x => {
+      return <div style={style.item}>{x.name}</div>
+    })
+    return list
+  }
 
   return (
     <div>
-
       <h4>Slider</h4>
-      <Slider datas={wrapDataItemInDiv(datas)} itemPerPage={3}>
-        {(list, next, prev) => (
+      <NewSlider
+        data={data}
+        itemPerPage={3}>
+
+      {(mapper, next, prev, offset) => (
+
+        <div>
           <div>
-            <div>
-              <button onClick={prev}>Prev</button>
-              <button onClick={next}>Next</button>
-            </div>
-            {list}
+            <button onClick={prev}>Prev</button>
+            <button onClick={next}>Next</button>
           </div>
-        )}
-      </Slider>
+          { getList(mapper) }
+        </div>
+      )}
 
-      <hr />
-
-      <h4>Responsive Slider</h4>
-      <ResponsiveSlider
-        datas={wrapDataItemInDiv(datas)}
-        breakpoints={breakpoints}>
-
-        {(list, next, prev) => (
-          <div>
-            <div>
-              <button onClick={prev}>Prev</button>
-              <button onClick={next}>Next</button>
-            </div>
-            {list}
-          </div>
-        )}
-      </ResponsiveSlider>
-
+      </NewSlider>
     </div>
   )
 }

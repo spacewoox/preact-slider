@@ -3,5 +3,5 @@ import Slider from './src/Slider'
 
 export default {
   ResponsiveSlider,
-  Slider
+  Slider,
 }
