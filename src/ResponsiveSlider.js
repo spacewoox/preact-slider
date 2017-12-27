@@ -20,7 +20,9 @@ const DynamicItemPerPage = ({ breakpoints, children }) => {
   )
 }
 
-const ResponsiveSlider = ({ datas, breakpoints, children }) => {
+const ResponsiveSlider = ({ data, breakpoints, children }) => {
+  console.log('preact slide')
+  console.log(data)
   if (!breakpoints) {
     console.warn('Preact slider : breakpoints object is missing')
     return null
@@ -30,7 +32,7 @@ const ResponsiveSlider = ({ datas, breakpoints, children }) => {
       {itemPerPage => (
 
         <div>
-          <Slider datas={datas} itemPerPage={itemPerPage}>
+          <Slider data={data} itemPerPage={itemPerPage}>
             {(list, next, prev, offset) => (
               children[0](list, next, prev, offset)
             )}

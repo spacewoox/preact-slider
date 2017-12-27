@@ -8,10 +8,10 @@ import { toArrayOfXElement } from '../lib/Utils'
 import { generateSortedMediaQueriesFromList } from '../lib/Json2MqParsing'
 import './style.css'
 
-const GenerateSliderList = ({itemPerPage, datas, children }) => {
+const GenerateSliderList = ({itemPerPage, data, children }) => {
   const list =
     toArrayOfXElement(
-      datas.map(x =>
+      data.map(x =>
         <div className='slider-item' style={{width: (100 / itemPerPage) + '%'}}>{x}</div>
       ), itemPerPage)
     .map(x => <div className='slider-page'>{x}</div>)
@@ -19,9 +19,9 @@ const GenerateSliderList = ({itemPerPage, datas, children }) => {
   return children[0](list)
 }
 
-const Slider = ({datas, itemPerPage=datas.length, children}) => {
+const Slider = ({data, itemPerPage=data.length, children}) => {
   return (
-    <GenerateSliderList itemPerPage={itemPerPage} datas={datas}>
+    <GenerateSliderList itemPerPage={itemPerPage} data={data}>
     {list => (
 
       <WithPaginate max={list.length-1} min={0}>
