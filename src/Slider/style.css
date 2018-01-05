@@ -1,19 +1,20 @@
-.slider-container {
+.sliderContainer {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.slider-page {
+.sliderPage {
   width: 100%;
   white-space: nowrap;
   display: inline-block;
 }
 
-.slider-item {
+.sliderItem {
   display: inline-block;
   box-sizing: border-box;
   vertical-align: middle;
+  white-space: normal;
 }
 
 .slider-item>div {
