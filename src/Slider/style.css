@@ -1,16 +1,16 @@
-.sliderContainer {
+.slider-container {
   width: 100%;
   white-space: nowrap;
   overflow: hidden;
 }
 
-.sliderPage {
+.slider-page {
   width: 100%;
   white-space: nowrap;
   display: inline-block;
 }
 
-.sliderItem {
+.slider-item {
   display: inline-block;
   box-sizing: border-box;
   vertical-align: middle;

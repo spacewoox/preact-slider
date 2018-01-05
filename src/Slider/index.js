@@ -6,7 +6,7 @@ import WithSliding from '../WithSliding'
 import { cycleThrough } from '../lib/Pagination'
 import { toArrayOfXElement } from '../lib/Utils'
 import { generateSortedMediaQueriesFromList } from '../lib/Json2MqParsing'
-import styles from './style.css'
+import './style.css'
 
 const GenerateSliderList = ({itemPerPage, data, display, children }) => {
 
@@ -24,7 +24,7 @@ const GenerateSliderList = ({itemPerPage, data, display, children }) => {
         display: 'block'
       }
     }
-    return <div className={'slider-item ' + styles.sliderItem} style={style}>{content}</div>
+    return <div className='slider-item' style={style}>{content}</div>
   }
 
   const list =
@@ -32,7 +32,7 @@ const GenerateSliderList = ({itemPerPage, data, display, children }) => {
       data.map(x => generateItem(x)),
       itemPerPage
     )
-    .map(x => <div className={'slider-page ' + styles.sliderPage}>{x}</div>)
+    .map(x => <div className='slider-page'>{x}</div>)
 
   return children[0](list)
 }
@@ -47,7 +47,7 @@ const Slider = ({data, display='row', itemPerPage=data.length, children}) => {
 
         <WithSliding list={list} offset={offset}>
         {() => (
-          <div className={'slider-container ' + styles.sliderContainer}>
+          <div className='slider-container'>
             {children[0](list, next, prev, offset)}
           </div>
         )}
